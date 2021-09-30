@@ -1,0 +1,17 @@
+.obstacle {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: red;
+  right: -50vw;
+  animation: moveLeft 2s linear 1;
+}
+
+@keyframes moveLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100vw);
+  }
+}

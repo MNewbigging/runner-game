@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { App } from './App';
+import { RunnerGame } from './components/RunnerGame';
 
 import './app.scss';
 
-ReactDOM.render(<App />, document.getElementById('app-root'));
+ReactDOM.render(<RunnerGame />, document.getElementById('app-root'));
