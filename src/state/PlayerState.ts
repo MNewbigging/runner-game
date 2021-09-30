@@ -7,6 +7,11 @@ export enum PlayerStatus {
 
 export class PlayerState {
   @observable public status = PlayerStatus.RUNNING;
+  public playerElement: HTMLDivElement;
+
+  public setPlayerElement(div: HTMLDivElement) {
+    this.playerElement = div;
+  }
 
   @action public jump() {
     this.status = PlayerStatus.JUMPING;

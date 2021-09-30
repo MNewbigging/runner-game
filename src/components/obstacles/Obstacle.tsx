@@ -1,9 +1,11 @@
 import React, { createRef } from 'react';
 
+import { ObstacleState } from '../../state/ObstacleState';
+
 import './obstacle.scss';
 
 interface Props {
-  onCollide: () => void;
+  obstacleState: ObstacleState;
 }
 
 export class Obstacle extends React.Component<Props> {
@@ -11,18 +13,19 @@ export class Obstacle extends React.Component<Props> {
   private readonly ref = createRef<HTMLDivElement>();
 
   componentDidMount() {
+    // TODO - test against parent next to player
     const intProps: IntersectionObserverInit = {
-      root: document.getElementById('player'),
+      root: null,
       rootMargin: '0px',
       threshold: 0.1,
     };
 
-    this.observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          this.props.onCollide();
-        }
-      });
+    this.observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        this.props.obstacleState.enterScreen();
+      } else {
+        this.props.obstacleState.exitScreen();
+      }
     }, intProps);
 
     if (this.ref.current) {

@@ -14,6 +14,9 @@ export class RunnerGame extends React.Component {
       <div className={'runner-game'}>
         <div className={'background'}>
           <Player playerState={this.runnerState.player} />
+          {this.runnerState.obstacles.map((ob) => (
+            <Obstacle obstacleState={ob} />
+          ))}
         </div>
 
         <div className={'foreground'}></div>

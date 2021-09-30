@@ -4,7 +4,7 @@
   height: 200px;
   background-color: red;
   right: -50vw;
-  animation: moveLeft 2s linear 1;
+  animation: moveLeft 4s linear 1;
 }
 
 @keyframes moveLeft {
@@ -12,6 +12,6 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100vw);
+    transform: translateX(-250vw);
   }
 }

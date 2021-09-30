@@ -11,6 +11,14 @@ interface Props {
 
 @observer
 export class Player extends React.Component<Props> {
+  private readonly ref = React.createRef<HTMLDivElement>();
+
+  componentDidMount() {
+    if (this.ref.current) {
+      this.props.playerState.setPlayerElement(this.ref.current);
+    }
+  }
+
   public render() {
     const { playerState } = this.props;
 
@@ -18,6 +26,7 @@ export class Player extends React.Component<Props> {
 
     return (
       <div
+        ref={this.ref}
         id={'player'}
         className={playerClasses.join(' ')}
         onAnimationEnd={playerState.onAnimEnd}
