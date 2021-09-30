@@ -13,6 +13,10 @@ export class PlayerState {
     this.playerElement = div;
   }
 
+  public getBounds(): DOMRect {
+    return this.playerElement.getBoundingClientRect();
+  }
+
   @action public jump() {
     this.status = PlayerStatus.JUMPING;
     console.log('jumping');

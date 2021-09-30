@@ -5,6 +5,10 @@
   background-color: red;
   right: -50vw;
   animation: moveLeft 4s linear 1;
+
+  &.paused {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes moveLeft {
