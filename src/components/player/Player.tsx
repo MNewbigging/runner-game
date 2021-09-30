@@ -14,12 +14,14 @@ export class Player extends React.Component<Props> {
   public render() {
     const { playerState } = this.props;
 
-    const playerClasses = ['player', playerState.state];
+    const playerClasses = ['player', playerState.status];
 
     return (
-      <div id={'player'} className={playerClasses.join(' ')}>
-        {this.props.children}
-      </div>
+      <div
+        id={'player'}
+        className={playerClasses.join(' ')}
+        onAnimationEnd={playerState.onAnimEnd}
+      ></div>
     );
   }
 }

@@ -6,10 +6,16 @@ export enum PlayerStatus {
 }
 
 export class PlayerState {
-  @observable public state = PlayerStatus.RUNNING;
+  @observable public status = PlayerStatus.RUNNING;
 
   @action public jump() {
-    this.state = PlayerStatus.JUMPING;
+    this.status = PlayerStatus.JUMPING;
     console.log('jumping');
   }
+
+  public onAnimEnd = () => {
+    if (this.status === PlayerStatus.JUMPING) {
+      this.status = PlayerStatus.RUNNING;
+    }
+  };
 }
