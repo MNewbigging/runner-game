@@ -15,7 +15,7 @@ export class RunnerGame extends React.Component {
         <div className={'background'}></div>
 
         <div className={'play-area'}>
-          <Player>
+          <Player playerState={this.runnerState.player}>
             <Obstacle onCollide={this.runnerState.onHitPlayer} />
           </Player>
         </div>

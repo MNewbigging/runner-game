@@ -1,4 +1,4 @@
-import { PlayerState } from '../state/Player';
+import { PlayerState } from './PlayerState';
 import { keyboardManager } from '../utils/KeyboardManager';
 
 export class RunnerGameState {
