@@ -33,11 +33,21 @@ export class RunnerGameState {
     window.requestAnimationFrame(this.checkCollisions);
 
     // Get all onscreen obstacles
-    const onScreenObstacles = this.obstacles.filter((ob) => ob.onScreen);
+    const onScreenObstacles = this.obstacles.filter((ob) => ob.nearPlayer);
     if (!onScreenObstacles.length) {
       return;
     }
 
     // Are they colliding with the player
+    for (const obs of onScreenObstacles) {
+      if (this.obstacleCollidesWithPlayer(obs)) {
+        // Game over
+        break;
+      }
+    }
   };
+
+  private obstacleCollidesWithPlayer(obs: ObstacleState) {
+    return true;
+  }
 }

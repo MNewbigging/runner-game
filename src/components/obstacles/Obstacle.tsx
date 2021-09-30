@@ -15,14 +15,14 @@ export class Obstacle extends React.Component<Props> {
   componentDidMount() {
     // TODO - test against parent next to player
     const intProps: IntersectionObserverInit = {
-      root: null,
-      rootMargin: '0px',
+      root: document.getElementById('obstacle-target'),
+      rootMargin: '0px 0px 0px 250px',
       threshold: 0.1,
     };
 
     this.observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
-        this.props.obstacleState.enterScreen();
+        this.props.obstacleState.enterPlayerArea();
       } else {
         this.props.obstacleState.exitScreen();
       }

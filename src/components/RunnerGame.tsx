@@ -2,6 +2,7 @@ import React from 'react';
 
 import { RunnerGameState } from '../state/RunnerGameState';
 import { Obstacle } from './obstacles/Obstacle';
+import { ObstaclesWrapper } from './obstacles/ObstaclesWrapper';
 import { Player } from './player/Player';
 
 import './runner-game.scss';
@@ -14,13 +15,21 @@ export class RunnerGame extends React.Component {
       <div className={'runner-game'}>
         <div className={'background'}>
           <Player playerState={this.runnerState.player} />
-          {this.runnerState.obstacles.map((ob) => (
-            <Obstacle obstacleState={ob} />
-          ))}
+          {this.renderObstacles()}
         </div>
 
         <div className={'foreground'}></div>
       </div>
+    );
+  }
+
+  private renderObstacles() {
+    return (
+      <ObstaclesWrapper>
+        {this.runnerState.obstacles.map((ob, i) => (
+          <Obstacle key={'obs-' + i} obstacleState={ob} />
+        ))}
+      </ObstaclesWrapper>
     );
   }
 }

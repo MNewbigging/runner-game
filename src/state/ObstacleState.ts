@@ -1,11 +1,13 @@
 export class ObstacleState {
-  public onScreen = false;
+  public nearPlayer = false;
 
-  public enterScreen() {
-    this.onScreen = true;
+  public enterPlayerArea() {
+    this.nearPlayer = true;
+    console.log('onscreen');
   }
 
   public exitScreen() {
-    this.onScreen = false;
+    this.nearPlayer = false;
+    console.log('offscreen');
   }
 }
