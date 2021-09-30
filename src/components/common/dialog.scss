@@ -1,0 +1,17 @@
+.dialog {
+  position: absolute;
+  pointer-events: none;
+  transition: all 0.3s linear;
+  border: 1px solid black;
+  left: 50%;
+  z-index: 1;
+  top: 10%;
+
+  &.open {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  &.closed {
+    transform: translate3d(-50%, -1000px, 0);
+  }
+}

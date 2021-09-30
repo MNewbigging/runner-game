@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { PlayerState } from '../../state/PlayerState';
+import { PlayerState } from '../../../state/PlayerState';
 
 import './player.scss';
 

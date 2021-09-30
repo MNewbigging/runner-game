@@ -3,9 +3,18 @@ import { PlayerState } from './PlayerState';
 import { keyboardManager } from '../utils/KeyboardManager';
 import { ObstacleState } from './ObstacleState';
 
+export enum GameScreen {
+  START_SCREEN = 'start-screen',
+  PLAY_SCREEN = 'play-screen',
+  PAUSE_SCREEN = 'pause-screen',
+  GAME_OVER_SCREEN = 'game-over-screen',
+}
+
 export class RunnerGameState {
   public player = new PlayerState();
   @observable public obstacles: ObstacleState[] = [];
+  @observable public status = GameScreen.START_SCREEN;
+  @observable public startScreenOpen = true;
 
   constructor() {
     keyboardManager.registerKeyListener(this.onKeyPress);
@@ -13,11 +22,18 @@ export class RunnerGameState {
     window.addEventListener('blur', this.pauseGame);
     window.addEventListener('focus', this.resumeGame);
 
-    // Add starting obstacles
-    this.addObstacle();
-    // Start game
-    this.checkCollisions();
+    // // Add starting obstacles
+    // this.addObstacle();
+    // // Start game
+    // this.checkCollisions();
   }
+
+  @action public startGame = () => {
+    this.startScreenOpen = false;
+
+    this.addObstacle();
+    this.checkCollisions();
+  };
 
   private onKeyPress = (key: string) => {
     console.log('key', key);

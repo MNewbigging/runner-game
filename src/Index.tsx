@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { RunnerGame } from './components/RunnerGame';
+import { RunnerGame } from './components/game/RunnerGame';
 
 import './app.scss';
 

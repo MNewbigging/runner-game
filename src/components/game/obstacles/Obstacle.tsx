@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React, { createRef } from 'react';
 
-import { ObstacleState } from '../../state/ObstacleState';
+import { ObstacleState } from '../../../state/ObstacleState';
 
 import './obstacle.scss';
 
