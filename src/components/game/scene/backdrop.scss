@@ -3,11 +3,18 @@
   width: 100%;
   height: 100%;
   background-size: contain;
+  background-position: 0% 0%;
+  background-repeat: repeat-x;
+
+  overflow: hidden;
+
+  // animation: pan 5s linear infinite;
 }
 
 .bg1 {
   z-index: 1;
   background-image: url('/dist/assets/backgrounds/bg1.png');
+  animation: none;
 }
 
 .bg2 {
@@ -26,6 +33,23 @@
 }
 
 .bg5 {
+  width: 200%;
+  height: 100%;
   z-index: 5;
   background-image: url('/dist/assets/backgrounds/bg5.png');
+  animation: pan 5s linear infinite;
+  background-size: contain;
+  background-position: 0% 0%;
+  background-repeat: repeat-x;
+}
+
+@keyframes pan {
+  0% {
+    // transform: translate3d(0, 0, 0);
+    background-position: 0% 0%;
+  }
+  100% {
+    //transform: translate3d(-66.6666%, 0, 0);
+    background-position: -100% 0%;
+  }
 }

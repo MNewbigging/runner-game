@@ -27,7 +27,7 @@ export class RunnerGame extends React.Component {
         {showDistance && <DistanceCounter distance={this.runnerState.distanceRan} />}
 
         <div className={'background'}>
-          <Backdrop />
+          <Backdrop playerSpeed={this.runnerState.player?.speed} />
 
           {this.runnerState.player && (
             <Player key={this.runnerState.player.id} playerState={this.runnerState.player} />
