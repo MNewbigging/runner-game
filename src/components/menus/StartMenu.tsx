@@ -13,20 +13,14 @@ interface Props {
 @observer
 export class StartMenu extends React.Component<Props> {
   public render() {
-    const { open, onStart } = this.props;
+    const { open } = this.props;
 
-    return <Dialog open={open} body={this.renderStartMenu()} />;
-  }
-
-  private renderStartMenu() {
     return (
-      <div className={'start-menu'}>
-        <button onClick={this.click}>Start game</button>
-      </div>
+      <Dialog open={open}>
+        <div className={'start-menu'}>
+          <button onClick={() => this.props.onStart()}>Start game</button>
+        </div>
+      </Dialog>
     );
   }
-
-  private click = () => {
-    this.props.onStart();
-  };
 }

@@ -5,7 +5,6 @@ import './dialog.scss';
 
 interface Props {
   open: boolean;
-  body: JSX.Element;
 }
 
 @observer
@@ -13,10 +12,6 @@ export class Dialog extends React.Component<Props> {
   public render() {
     const openClass = this.props.open ? 'open' : 'closed';
 
-    return (
-      <div className={'dialog ' + openClass} onClick={() => console.log('clicked dialog')}>
-        {this.props.body}
-      </div>
-    );
+    return <div className={'dialog ' + openClass}>{this.props.children}</div>;
   }
 }
