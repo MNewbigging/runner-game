@@ -23,7 +23,7 @@ export class RunnerGame extends React.Component {
       <div className={'runner-game'}>
         {this.renderMenus()}
 
-        {showDistance && <DistanceCounter distance={this.runnerState.distanceRun} />}
+        {showDistance && <DistanceCounter distance={this.runnerState.distanceRan} />}
 
         <div className={'background'}>
           {this.runnerState.player && (
@@ -61,6 +61,7 @@ export class RunnerGame extends React.Component {
         <GameOverMenu
           open={this.runnerState.isActiveScreen(GameScreen.GAME_OVER_SCREEN)}
           onRestart={this.runnerState.restartGame}
+          distance={this.runnerState.distanceRan}
         />
       </>
     );
