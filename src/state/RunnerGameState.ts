@@ -18,8 +18,9 @@ export class RunnerGameState {
   @observable public obstacles: ObstacleState[] = [];
   @observable public screen = GameScreen.START_SCREEN;
   @observable public distanceRan = 0;
-  private startTime: number;
+  private elapsedTime = 0;
   private lastUpdate: number;
+  private updateLoop: number;
 
   constructor() {
     keyboardManager.registerKeyListener(this.onKeyPress);
@@ -38,19 +39,22 @@ export class RunnerGameState {
     this.addObstacle();
 
     this.lastUpdate = new Date().getTime();
-    this.startTime = this.lastUpdate;
     this.update();
   };
 
   @action public restartGame = () => {
     this.obstacles = [];
     this.distanceRan = 0;
+    this.elapsedTime = 0;
 
     this.startGame();
   };
 
   @action public resumeGame = () => {
     this.screen = GameScreen.PLAY_SCREEN;
+
+    this.lastUpdate = new Date().getTime();
+    window.requestAnimationFrame(this.update);
 
     this.unpauseAnimations();
   };
@@ -77,7 +81,7 @@ export class RunnerGameState {
   }
 
   private update = () => {
-    window.requestAnimationFrame(this.update);
+    this.updateLoop = window.requestAnimationFrame(this.update);
 
     // Delta time
     const currentTime = new Date().getTime();
@@ -85,7 +89,7 @@ export class RunnerGameState {
     this.lastUpdate = currentTime;
 
     // Update distance
-    this.updateDistanceRan();
+    this.updateDistanceRan(deltaTime);
 
     // Get all onscreen obstacles
     const onScreenObstacles = this.obstacles.filter((ob) => ob.nearPlayer);
@@ -103,15 +107,17 @@ export class RunnerGameState {
     }
   };
 
-  private updateDistanceRan() {
+  private updateDistanceRan(dt: number) {
     // Total elapsed time in seconds
-    const elapsed = (this.lastUpdate - this.startTime) / 1000;
+    this.elapsedTime += dt;
     // Calculate distance
-    this.distanceRan = Math.floor(elapsed * this.player.speed);
+    this.distanceRan = Math.floor(this.elapsedTime * this.player.speed);
   }
 
   @action private endGame() {
     this.screen = GameScreen.GAME_OVER_SCREEN;
+
+    window.cancelAnimationFrame(this.updateLoop);
 
     this.pauseAnimations();
   }
@@ -123,6 +129,8 @@ export class RunnerGameState {
     }
 
     this.screen = GameScreen.PAUSE_SCREEN;
+
+    window.cancelAnimationFrame(this.updateLoop);
 
     // Stop all animations
     this.pauseAnimations();
