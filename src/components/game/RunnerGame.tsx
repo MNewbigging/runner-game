@@ -9,6 +9,7 @@ import { DistanceCounter } from './hud/DistanceCounter';
 import { Obstacle } from './obstacles/Obstacle';
 import { ObstaclesWrapper } from './obstacles/ObstaclesWrapper';
 import { Player } from './player/Player';
+import { Backdrop } from './scene/Backdrop';
 
 import './runner-game.scss';
 
@@ -26,6 +27,8 @@ export class RunnerGame extends React.Component {
         {showDistance && <DistanceCounter distance={this.runnerState.distanceRan} />}
 
         <div className={'background'}>
+          <Backdrop />
+
           {this.runnerState.player && (
             <Player key={this.runnerState.player.id} playerState={this.runnerState.player} />
           )}
