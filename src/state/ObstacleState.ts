@@ -16,12 +16,10 @@ export class ObstacleState {
 
   public enterPlayerArea() {
     this.nearPlayer = true;
-    console.log('onscreen');
   }
 
   public exitScreen() {
     this.nearPlayer = false;
-    console.log('offscreen');
   }
 
   @action public pause() {

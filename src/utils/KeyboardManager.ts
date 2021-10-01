@@ -19,6 +19,7 @@ class KeyboardManager {
   }
 
   private onKeyDown = (e: KeyboardEvent) => {
+    e.preventDefault();
     // Ensure listeners are only called once
     if (this.pressedKeys.has(e.code)) {
       return;

@@ -1,4 +1,5 @@
 import { action, observable } from 'mobx';
+
 import { PlayerState } from './PlayerState';
 import { keyboardManager, KeyName } from '../utils/KeyboardManager';
 import { ObstacleState } from './ObstacleState';
@@ -47,14 +48,13 @@ export class RunnerGameState {
         this.player.jump();
         break;
       case KeyName.P:
-        if (this.screen !== GameScreen.PAUSE_SCREEN) {
-          this.pauseGame();
-        }
+        this.pauseGame();
         break;
     }
   };
 
   @action private addObstacle() {
+    console.log('added obstacle');
     this.obstacles.push(new ObstacleState());
   }
 
@@ -96,6 +96,11 @@ export class RunnerGameState {
   }
 
   @action private pauseGame = () => {
+    // Ensure we can actually pause the game
+    if (this.screen !== GameScreen.PLAY_SCREEN) {
+      return;
+    }
+
     this.screen = GameScreen.PAUSE_SCREEN;
 
     // Stop all animations

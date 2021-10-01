@@ -19,7 +19,6 @@ export class PlayerState {
 
   @action public jump() {
     this.status = PlayerStatus.JUMPING;
-    console.log('jumping');
   }
 
   public onAnimEnd = () => {
