@@ -38,8 +38,7 @@ export class RunnerGameState {
 
     this.addObstacle();
 
-    this.lastUpdate = new Date().getTime();
-    this.update();
+    this.startUpdateLoop();
   };
 
   @action public restartGame = () => {
@@ -53,10 +52,9 @@ export class RunnerGameState {
   @action public resumeGame = () => {
     this.screen = GameScreen.PLAY_SCREEN;
 
-    this.lastUpdate = new Date().getTime();
-    window.requestAnimationFrame(this.update);
-
     this.unpauseAnimations();
+
+    this.startUpdateLoop();
   };
 
   private onKeyPress = (key: string) => {
@@ -78,6 +76,11 @@ export class RunnerGameState {
   @action private addObstacle() {
     console.log('added obstacle');
     this.obstacles.push(new ObstacleState(RandomUtils.getRandomId(4)));
+  }
+
+  private startUpdateLoop() {
+    this.lastUpdate = new Date().getTime();
+    this.update();
   }
 
   private update = () => {
