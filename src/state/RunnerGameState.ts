@@ -13,9 +13,7 @@ export enum GameScreen {
 export class RunnerGameState {
   public player = new PlayerState();
   @observable public obstacles: ObstacleState[] = [];
-  @observable public status = GameScreen.START_SCREEN;
-  @observable public startScreenOpen = true;
-  @observable public pauseScreenOpen = false;
+  @observable public screen = GameScreen.START_SCREEN;
 
   constructor() {
     keyboardManager.registerKeyListener(this.onKeyPress);
@@ -24,14 +22,21 @@ export class RunnerGameState {
   }
 
   @action public startGame = () => {
-    this.startScreenOpen = false;
+    this.screen = GameScreen.PLAY_SCREEN;
 
     this.addObstacle();
     this.checkCollisions();
   };
 
+  @action public restartGame = () => {
+    this.player = new PlayerState();
+    this.obstacles = [];
+
+    this.startGame();
+  };
+
   @action public resumeGame = () => {
-    this.pauseScreenOpen = false;
+    this.screen = GameScreen.PLAY_SCREEN;
 
     this.unpauseObstacleAnimations();
   };
@@ -42,7 +47,7 @@ export class RunnerGameState {
         this.player.jump();
         break;
       case KeyName.P:
-        if (!this.pauseScreenOpen) {
+        if (this.screen !== GameScreen.PAUSE_SCREEN) {
           this.pauseGame();
         }
         break;
@@ -84,12 +89,14 @@ export class RunnerGameState {
     );
   }
 
-  private endGame() {
+  @action private endGame() {
+    this.screen = GameScreen.GAME_OVER_SCREEN;
+
     this.pauseObstacleAnimations();
   }
 
   @action private pauseGame = () => {
-    this.pauseScreenOpen = true;
+    this.screen = GameScreen.PAUSE_SCREEN;
 
     // Stop all animations
     this.pauseObstacleAnimations();

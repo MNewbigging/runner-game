@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { RunnerGameState } from '../../state/RunnerGameState';
+import { GameScreen, RunnerGameState } from '../../state/RunnerGameState';
+import { GameOverMenu } from '../menus/GameOverMenu';
 import { PauseMenu } from '../menus/PauseMenu';
 import { StartMenu } from '../menus/StartMenu';
 import { Obstacle } from './obstacles/Obstacle';
@@ -40,12 +41,23 @@ export class RunnerGame extends React.Component {
   }
 
   private renderMenus() {
+    const isScreenOpen = (screen: GameScreen) => {
+      return this.runnerState.screen === screen;
+    };
+
     return (
       <>
-        <StartMenu open={this.runnerState.startScreenOpen} onStart={this.runnerState.startGame} />
+        <StartMenu
+          open={isScreenOpen(GameScreen.START_SCREEN)}
+          onStart={this.runnerState.startGame}
+        />
         <PauseMenu
-          open={this.runnerState.pauseScreenOpen}
+          open={isScreenOpen(GameScreen.PAUSE_SCREEN)}
           onUnpause={this.runnerState.resumeGame}
+        />
+        <GameOverMenu
+          open={isScreenOpen(GameScreen.GAME_OVER_SCREEN)}
+          onRestart={this.runnerState.restartGame}
         />
       </>
     );
