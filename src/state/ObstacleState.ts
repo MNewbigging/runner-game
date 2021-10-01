@@ -5,8 +5,11 @@ export class ObstacleState {
   public nearPlayer = false;
   public element: HTMLDivElement;
 
-  constructor(id: string) {
+  private onRemove: (id: string) => void;
+
+  constructor(id: string, onRemove: (id: string) => void) {
     this.id = id;
+    this.onRemove = onRemove;
   }
 
   public setElement(div: HTMLDivElement) {
@@ -22,7 +25,10 @@ export class ObstacleState {
   }
 
   public exitScreen() {
-    this.nearPlayer = false;
+    if (this.nearPlayer) {
+      this.nearPlayer = false;
+      this.onRemove(this.id);
+    }
   }
 
   @action public pause() {

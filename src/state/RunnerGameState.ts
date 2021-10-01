@@ -5,6 +5,7 @@ import { keyboardManager, KeyName } from '../utils/KeyboardManager';
 import { ObstacleState } from './ObstacleState';
 import { RandomUtils } from '../utils/RandomUtils';
 import { GameUtils } from '../utils/GameUtils';
+import { ObstacleFactory } from '../utils/ObstacleFactory';
 
 export enum GameScreen {
   START_SCREEN = 'start-screen',
@@ -21,6 +22,10 @@ export class RunnerGameState {
   private elapsedTime = 0;
   private lastUpdate: number;
   private updateLoop: number;
+
+  // Spacing number is measured in milliseconds between groups
+  private obstacleGroupSpacing = 2000;
+  private lastObstaclePlaced: number;
 
   constructor() {
     keyboardManager.registerKeyListener(this.onKeyPress);
@@ -75,8 +80,13 @@ export class RunnerGameState {
 
   @action private addObstacle() {
     console.log('added obstacle');
-    this.obstacles.push(new ObstacleState(RandomUtils.getRandomId(4)));
+    this.obstacles.push(ObstacleFactory.buildObstacle(this.removeOffscreenObstacle));
+    this.lastObstaclePlaced = new Date().getTime();
   }
+
+  private removeOffscreenObstacle = (id: string) => {
+    this.obstacles = this.obstacles.filter((obs) => obs.id !== id);
+  };
 
   private startUpdateLoop() {
     this.lastUpdate = new Date().getTime();
@@ -86,15 +96,25 @@ export class RunnerGameState {
   private update = () => {
     this.updateLoop = window.requestAnimationFrame(this.update);
 
-    // Delta time
+    // Timers
     const currentTime = new Date().getTime();
     const deltaTime = (currentTime - this.lastUpdate) / 1000;
     this.lastUpdate = currentTime;
+    this.elapsedTime += deltaTime;
 
-    // Update distance
-    this.updateDistanceRan(deltaTime);
+    this.updateDistanceRan();
 
-    // Get all onscreen obstacles
+    this.checkObstacleCollisions();
+
+    this.addNewObstacles(currentTime);
+  };
+
+  private updateDistanceRan() {
+    // Calculate distance
+    this.distanceRan = Math.floor(this.elapsedTime * this.player.speed);
+  }
+
+  private checkObstacleCollisions() {
     const onScreenObstacles = this.obstacles.filter((ob) => ob.nearPlayer);
     if (!onScreenObstacles.length) {
       return;
@@ -108,13 +128,18 @@ export class RunnerGameState {
         break;
       }
     }
-  };
+  }
 
-  private updateDistanceRan(dt: number) {
-    // Total elapsed time in seconds
-    this.elapsedTime += dt;
-    // Calculate distance
-    this.distanceRan = Math.floor(this.elapsedTime * this.player.speed);
+  private addNewObstacles(currentTime: number) {
+    // TODO Update the group spacing as time goes on
+
+    // Add a new obstacle every n seconds, where n is group spacing
+    const elapsed = currentTime - this.lastObstaclePlaced;
+    if (elapsed < this.obstacleGroupSpacing) {
+      return;
+    }
+
+    this.addObstacle();
   }
 
   @action private endGame() {
