@@ -1,10 +1,14 @@
 import { action, observable } from 'mobx';
 
 export class ObstacleState {
+  public readonly id: string;
   @observable public paused = false;
-
   public nearPlayer = false;
   public element: HTMLDivElement;
+
+  constructor(id: string) {
+    this.id = id;
+  }
 
   public setElement(div: HTMLDivElement) {
     this.element = div;

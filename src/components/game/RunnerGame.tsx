@@ -21,7 +21,9 @@ export class RunnerGame extends React.Component {
         {this.renderMenus()}
 
         <div className={'background'}>
-          <Player playerState={this.runnerState.player} />
+          {this.runnerState.player && (
+            <Player key={this.runnerState.player.id} playerState={this.runnerState.player} />
+          )}
           {this.renderObstacles()}
         </div>
 
@@ -33,8 +35,8 @@ export class RunnerGame extends React.Component {
   private renderObstacles() {
     return (
       <ObstaclesWrapper>
-        {this.runnerState.obstacles.map((ob, i) => (
-          <Obstacle key={'obs-' + i} obstacleState={ob} />
+        {this.runnerState.obstacles.map((ob) => (
+          <Obstacle key={ob.id} obstacleState={ob} />
         ))}
       </ObstaclesWrapper>
     );

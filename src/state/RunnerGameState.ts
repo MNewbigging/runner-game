@@ -3,6 +3,7 @@ import { action, observable } from 'mobx';
 import { PlayerState } from './PlayerState';
 import { keyboardManager, KeyName } from '../utils/KeyboardManager';
 import { ObstacleState } from './ObstacleState';
+import { RandomUtils } from '../utils/RandomUtils';
 
 export enum GameScreen {
   START_SCREEN = 'start-screen',
@@ -12,7 +13,7 @@ export enum GameScreen {
 }
 
 export class RunnerGameState {
-  public player = new PlayerState();
+  @observable public player: PlayerState;
   @observable public obstacles: ObstacleState[] = [];
   @observable public screen = GameScreen.START_SCREEN;
 
@@ -24,13 +25,13 @@ export class RunnerGameState {
 
   @action public startGame = () => {
     this.screen = GameScreen.PLAY_SCREEN;
+    this.player = new PlayerState(RandomUtils.getRandomId(4));
 
     this.addObstacle();
     this.checkCollisions();
   };
 
   @action public restartGame = () => {
-    this.player = new PlayerState();
     this.obstacles = [];
 
     this.startGame();
@@ -43,6 +44,11 @@ export class RunnerGameState {
   };
 
   private onKeyPress = (key: string) => {
+    // Only listen for keys during game
+    if (this.screen !== GameScreen.PLAY_SCREEN) {
+      return;
+    }
+
     switch (key) {
       case KeyName.SPACE:
         this.player.jump();
@@ -55,7 +61,7 @@ export class RunnerGameState {
 
   @action private addObstacle() {
     console.log('added obstacle');
-    this.obstacles.push(new ObstacleState());
+    this.obstacles.push(new ObstacleState(RandomUtils.getRandomId(4)));
   }
 
   private checkCollisions = () => {

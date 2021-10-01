@@ -6,8 +6,13 @@ export enum PlayerStatus {
 }
 
 export class PlayerState {
+  public readonly id: string;
   @observable public status = PlayerStatus.RUNNING;
   public playerElement: HTMLDivElement;
+
+  constructor(id: string) {
+    this.id = id;
+  }
 
   public setPlayerElement(div: HTMLDivElement) {
     this.playerElement = div;
