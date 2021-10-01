@@ -4,6 +4,7 @@ import { PlayerState } from './PlayerState';
 import { keyboardManager, KeyName } from '../utils/KeyboardManager';
 import { ObstacleState } from './ObstacleState';
 import { RandomUtils } from '../utils/RandomUtils';
+import { GameUtils } from '../utils/GameUtils';
 
 export enum GameScreen {
   START_SCREEN = 'start-screen',
@@ -28,7 +29,7 @@ export class RunnerGameState {
     this.player = new PlayerState(RandomUtils.getRandomId(4));
 
     this.addObstacle();
-    this.checkCollisions();
+    this.update();
   };
 
   @action public restartGame = () => {
@@ -64,8 +65,8 @@ export class RunnerGameState {
     this.obstacles.push(new ObstacleState(RandomUtils.getRandomId(4)));
   }
 
-  private checkCollisions = () => {
-    window.requestAnimationFrame(this.checkCollisions);
+  private update = () => {
+    window.requestAnimationFrame(this.update);
 
     // Get all onscreen obstacles
     const onScreenObstacles = this.obstacles.filter((ob) => ob.nearPlayer);
@@ -75,25 +76,13 @@ export class RunnerGameState {
 
     // Are they colliding with the player
     for (const obs of onScreenObstacles) {
-      if (this.obstacleCollidesWithPlayer(obs)) {
+      if (GameUtils.obstacleCollidesWithPlayer(obs, this.player)) {
         // Game over
         this.endGame();
         break;
       }
     }
   };
-
-  private obstacleCollidesWithPlayer(obs: ObstacleState) {
-    const pRect = this.player.getBounds();
-    const oRect = obs.getBounds();
-
-    return !(
-      pRect.right < oRect.left ||
-      pRect.left > oRect.right ||
-      pRect.bottom < oRect.top ||
-      pRect.top > oRect.bottom
-    );
-  }
 
   @action private endGame() {
     this.screen = GameScreen.GAME_OVER_SCREEN;
