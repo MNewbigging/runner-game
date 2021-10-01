@@ -17,6 +17,8 @@ export class RunnerGameState {
   @observable public player: PlayerState;
   @observable public obstacles: ObstacleState[] = [];
   @observable public screen = GameScreen.START_SCREEN;
+  @observable public distanceRun = 0;
+  private clockInterval: number;
 
   constructor() {
     keyboardManager.registerKeyListener(this.onKeyPress);
@@ -24,16 +26,22 @@ export class RunnerGameState {
     window.addEventListener('blur', this.pauseGame);
   }
 
+  public isActiveScreen(screen: GameScreen) {
+    return this.screen === screen;
+  }
+
   @action public startGame = () => {
     this.screen = GameScreen.PLAY_SCREEN;
     this.player = new PlayerState(RandomUtils.getRandomId(4));
 
     this.addObstacle();
+    this.startClock();
     this.update();
   };
 
   @action public restartGame = () => {
     this.obstacles = [];
+    this.distanceRun = 0;
 
     this.startGame();
   };
@@ -41,7 +49,9 @@ export class RunnerGameState {
   @action public resumeGame = () => {
     this.screen = GameScreen.PLAY_SCREEN;
 
-    this.unpauseObstacleAnimations();
+    this.startClock();
+
+    this.unpauseAnimations();
   };
 
   private onKeyPress = (key: string) => {
@@ -87,7 +97,9 @@ export class RunnerGameState {
   @action private endGame() {
     this.screen = GameScreen.GAME_OVER_SCREEN;
 
-    this.pauseObstacleAnimations();
+    this.stopClock();
+
+    this.pauseAnimations();
   }
 
   @action private pauseGame = () => {
@@ -98,16 +110,36 @@ export class RunnerGameState {
 
     this.screen = GameScreen.PAUSE_SCREEN;
 
+    this.stopClock();
+
     // Stop all animations
-    this.pauseObstacleAnimations();
+    this.pauseAnimations();
   };
 
-  private pauseObstacleAnimations() {
+  private pauseAnimations() {
     // Pause obstacle anims
     this.obstacles.forEach((obs) => obs.pause());
+
+    // Pause player anims
+    this.player.pause();
   }
 
-  private unpauseObstacleAnimations() {
+  private unpauseAnimations() {
     this.obstacles.forEach((obs) => obs.unpause());
+    this.player.unpause();
+  }
+
+  @action private clockTick = () => {
+    // Called every second
+    // Calculate distance run based on player speed
+    this.distanceRun += this.player.speed;
+  };
+
+  private startClock() {
+    this.clockInterval = window.setInterval(this.clockTick, 1000);
+  }
+
+  private stopClock() {
+    clearInterval(this.clockInterval);
   }
 }

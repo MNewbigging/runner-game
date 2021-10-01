@@ -8,6 +8,7 @@ export enum PlayerStatus {
 export class PlayerState {
   public readonly id: string;
   @observable public status = PlayerStatus.RUNNING;
+  public speed = 1; // meters per second
   public playerElement: HTMLDivElement;
 
   constructor(id: string) {
@@ -31,4 +32,12 @@ export class PlayerState {
       this.status = PlayerStatus.RUNNING;
     }
   };
+
+  public pause() {
+    this.playerElement.style.animationPlayState = 'paused';
+  }
+
+  public unpause() {
+    this.playerElement.style.animationPlayState = '';
+  }
 }

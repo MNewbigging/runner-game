@@ -37,11 +37,6 @@ export class Obstacle extends React.Component<Props> {
   }
 
   public render() {
-    const { obstacleState } = this.props;
-
-    const pausedClass = obstacleState.paused ? 'paused' : '';
-    const obstacleClasses = ['obstacle', pausedClass];
-
-    return <div ref={this.ref} className={obstacleClasses.join(' ')}></div>;
+    return <div ref={this.ref} className={'obstacle'}></div>;
   }
 }

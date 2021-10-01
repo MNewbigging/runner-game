@@ -2,7 +2,6 @@ import { action, observable } from 'mobx';
 
 export class ObstacleState {
   public readonly id: string;
-  @observable public paused = false;
   public nearPlayer = false;
   public element: HTMLDivElement;
 
@@ -27,10 +26,10 @@ export class ObstacleState {
   }
 
   @action public pause() {
-    this.paused = true;
+    this.element.style.animationPlayState = 'paused';
   }
 
   @action public unpause() {
-    this.paused = false;
+    this.element.style.animationPlayState = '';
   }
 }
