@@ -23,9 +23,9 @@ export class RunnerGameState {
   private lastUpdate: number;
   private updateLoop: number;
 
-  // Spacing number is measured in milliseconds between groups
-  private obstacleGroupSpacing = 2000;
-  private lastObstaclePlaced: number;
+  // Spacing number is measured in seconds between groups
+  private obstacleGroupSpacing = 2;
+  private timeSinceLastObstacle = 0;
 
   constructor() {
     keyboardManager.registerKeyListener(this.onKeyPress);
@@ -50,6 +50,7 @@ export class RunnerGameState {
     this.obstacles = [];
     this.distanceRan = 0;
     this.elapsedTime = 0;
+    this.timeSinceLastObstacle = 0;
 
     this.startGame();
   };
@@ -81,7 +82,6 @@ export class RunnerGameState {
   @action private addObstacle() {
     console.log('added obstacle');
     this.obstacles.push(ObstacleFactory.buildObstacle(this.removeOffscreenObstacle));
-    this.lastObstaclePlaced = new Date().getTime();
   }
 
   private removeOffscreenObstacle = (id: string) => {
@@ -106,7 +106,7 @@ export class RunnerGameState {
 
     this.checkObstacleCollisions();
 
-    this.addNewObstacles(currentTime);
+    this.addNewObstacles(deltaTime);
   };
 
   private updateDistanceRan() {
@@ -130,16 +130,19 @@ export class RunnerGameState {
     }
   }
 
-  private addNewObstacles(currentTime: number) {
+  private addNewObstacles(deltaTime: number) {
+    // Increment obs placement timer
+    this.timeSinceLastObstacle += deltaTime;
+
     // TODO Update the group spacing as time goes on
 
     // Add a new obstacle every n seconds, where n is group spacing
-    const elapsed = currentTime - this.lastObstaclePlaced;
-    if (elapsed < this.obstacleGroupSpacing) {
+    if (this.timeSinceLastObstacle < this.obstacleGroupSpacing) {
       return;
     }
 
     this.addObstacle();
+    this.timeSinceLastObstacle = 0;
   }
 
   @action private endGame() {
