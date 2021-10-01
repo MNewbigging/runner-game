@@ -2,6 +2,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 
 import { RunnerGameState } from '../../state/RunnerGameState';
+import { PauseMenu } from '../menus/PauseMenu';
 import { StartMenu } from '../menus/StartMenu';
 import { Obstacle } from './obstacles/Obstacle';
 import { ObstaclesWrapper } from './obstacles/ObstaclesWrapper';
@@ -42,6 +43,10 @@ export class RunnerGame extends React.Component {
     return (
       <>
         <StartMenu open={this.runnerState.startScreenOpen} onStart={this.runnerState.startGame} />
+        <PauseMenu
+          open={this.runnerState.pauseScreenOpen}
+          onUnpause={this.runnerState.resumeGame}
+        />
       </>
     );
   }

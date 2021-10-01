@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { PlayerState } from './PlayerState';
-import { keyboardManager } from '../utils/KeyboardManager';
+import { keyboardManager, KeyName } from '../utils/KeyboardManager';
 import { ObstacleState } from './ObstacleState';
 
 export enum GameScreen {
@@ -15,17 +15,12 @@ export class RunnerGameState {
   @observable public obstacles: ObstacleState[] = [];
   @observable public status = GameScreen.START_SCREEN;
   @observable public startScreenOpen = true;
+  @observable public pauseScreenOpen = false;
 
   constructor() {
     keyboardManager.registerKeyListener(this.onKeyPress);
 
     window.addEventListener('blur', this.pauseGame);
-    window.addEventListener('focus', this.resumeGame);
-
-    // // Add starting obstacles
-    // this.addObstacle();
-    // // Start game
-    // this.checkCollisions();
   }
 
   @action public startGame = () => {
@@ -35,12 +30,21 @@ export class RunnerGameState {
     this.checkCollisions();
   };
 
-  private onKeyPress = (key: string) => {
-    console.log('key', key);
+  @action public resumeGame = () => {
+    this.pauseScreenOpen = false;
 
+    this.unpauseObstacleAnimations();
+  };
+
+  private onKeyPress = (key: string) => {
     switch (key) {
-      case 'Space':
+      case KeyName.SPACE:
         this.player.jump();
+        break;
+      case KeyName.P:
+        if (!this.pauseScreenOpen) {
+          this.pauseGame();
+        }
         break;
     }
   };
@@ -84,13 +88,11 @@ export class RunnerGameState {
     this.pauseObstacleAnimations();
   }
 
-  private pauseGame = () => {
+  @action private pauseGame = () => {
+    this.pauseScreenOpen = true;
+
     // Stop all animations
     this.pauseObstacleAnimations();
-  };
-
-  private resumeGame = () => {
-    this.unpauseObstacleAnimations();
   };
 
   private pauseObstacleAnimations() {

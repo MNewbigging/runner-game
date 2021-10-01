@@ -1,5 +1,10 @@
 type KeyListener = (key: string) => void;
 
+export enum KeyName {
+  SPACE = 'Space',
+  P = 'KeyP',
+}
+
 class KeyboardManager {
   private pressedKeys = new Set<string>();
   private listeners: KeyListener[] = [];
