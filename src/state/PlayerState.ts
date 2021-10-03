@@ -1,8 +1,10 @@
 import { action, observable } from 'mobx';
+import { CSSProperties } from 'react';
 
 export enum PlayerStatus {
   RUNNING = 'running',
   JUMPING = 'jumping',
+  DEAD = 'dead',
 }
 
 export class PlayerState {
@@ -30,8 +32,14 @@ export class PlayerState {
   public onAnimEnd = () => {
     if (this.status === PlayerStatus.JUMPING) {
       this.status = PlayerStatus.RUNNING;
+    } else if (this.status === PlayerStatus.DEAD) {
+      // this.playerElement.style.backgroundPosition = '-192px';
     }
   };
+
+  public die() {
+    this.status = PlayerStatus.DEAD;
+  }
 
   public pause() {
     this.playerElement.style.animationPlayState = 'paused';

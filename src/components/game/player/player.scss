@@ -16,6 +16,12 @@
   &.jumping {
     animation: jump 1s linear 1, jumpAnim 1s step-end 1;
   }
+
+  &.dead {
+    background-image: url('/dist/assets/sprites/cat2-death.png');
+    animation: death 0.8s steps(3) 1 forwards;
+    //background-position: -48px;
+  }
 }
 
 @keyframes jump {
@@ -54,5 +60,11 @@
 @keyframes runAnim {
   100% {
     background-position: -288px;
+  }
+}
+
+@keyframes death {
+  100% {
+    background-position: -156px;
   }
 }
