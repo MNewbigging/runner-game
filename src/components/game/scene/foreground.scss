@@ -9,7 +9,9 @@
     height: 32px;
     background-size: 32px 32px;
     background-repeat: repeat-x;
-    animation: panTiles 0.5s linear infinite;
+    animation-name: panTiles;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
   }
 
   .big-tiles {
@@ -17,7 +19,9 @@
     height: 64px;
     background-size: 64px;
     background-repeat: repeat-x;
-    animation: panBigTiles 1s linear infinite;
+    animation-name: panBigTiles;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
   }
 }
 
