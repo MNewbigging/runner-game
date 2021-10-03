@@ -1,27 +1,40 @@
 .player {
   position: absolute;
   z-index: 50;
-  width: 100px;
-  height: 100px;
-  background-color: blue;
+  width: 48px;
+  height: 48px;
   margin-left: 50px;
+  bottom: 22px;
+  transform: scale(2);
+  background-image: url('/dist/assets/sprites/cat2-walk.png');
+  //background-size: 600%;
+
+  animation: run 0.8s steps(6) infinite;
 
   &.jumping {
-    animation: jump;
-    animation-duration: 1s;
-    animation-iteration-count: 1;
-    animation-timing-function: linear;
+    // animation: jump;
+    // animation-duration: 1s;
+    // animation-iteration-count: 1;
+    // animation-timing-function: linear;
+
+    animation: run 0.8s steps(6) infinite, jump 1s linear 1;
   }
 }
 
 @keyframes jump {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale(2);
   }
   50% {
-    transform: translate3d(0, -400px, 0);
+    transform: translate3d(0, -200px, 0) scale(2);
   }
   100% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale(2);
+  }
+}
+
+@keyframes run {
+  100% {
+    background-position: -288px;
   }
 }
