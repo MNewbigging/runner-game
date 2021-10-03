@@ -8,7 +8,10 @@
     width: 3024px;
     height: 100%;
 
-    animation: pan 10s linear infinite;
+    //animation: pan linear infinite;
+    animation-name: pan;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
     background-size: 1008px 567px;
     background-repeat: repeat-x;
   }
