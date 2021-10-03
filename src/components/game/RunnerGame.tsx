@@ -12,6 +12,7 @@ import { Player } from './player/Player';
 import { Backdrop } from './scene/Backdrop';
 
 import './runner-game.scss';
+import { Foreground } from './scene/Foreground';
 
 @observer
 export class RunnerGame extends React.Component {
@@ -35,7 +36,9 @@ export class RunnerGame extends React.Component {
           {this.renderObstacles()}
         </div>
 
-        <div className={'foreground'}></div>
+        <div className={'foreground'}>
+          <Foreground />
+        </div>
       </div>
     );
   }
