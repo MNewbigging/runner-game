@@ -1,11 +1,19 @@
-.obstacle {
+.obstacle-container {
   position: absolute;
-  z-index: 50;
   width: 42px;
   height: 32px;
   right: -100vw;
   bottom: 16px;
-  animation: moveLeft 10s linear 1, attackAnim 1s steps(4) infinite;
+  animation: moveLeft 20s linear 1;
+}
+
+.obstacle {
+  z-index: 50;
+  width: 42px;
+  height: 32px;
+
+  animation: attackAnim 1s steps(4) infinite;
+  transform: scale(-2, 2);
   background-position: -4px 32px;
   //border: 1px solid red;
 
@@ -34,10 +42,10 @@
 
 @keyframes moveLeft {
   0% {
-    transform: translateX(0) scale(-2, 2);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(-250vw) scale(-2, 2);
+    transform: translateX(-250vw);
   }
 }
 

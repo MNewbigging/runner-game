@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import React, { createRef } from 'react';
+import React, { createRef, CSSProperties } from 'react';
 
 import { ObstacleState } from '../../../state/ObstacleState';
 import { RandomUtils } from '../../../utils/RandomUtils';
@@ -8,12 +8,14 @@ import './obstacle.scss';
 
 interface Props {
   obstacleState: ObstacleState;
+  playerSpeed: number;
 }
 
 @observer
 export class Obstacle extends React.Component<Props> {
   private observer: IntersectionObserver;
-  private readonly ref = createRef<HTMLDivElement>();
+  private readonly innerRef = createRef<HTMLDivElement>();
+  private readonly containerRef = createRef<HTMLDivElement>();
 
   componentDidMount() {
     // Setup intersection observer
@@ -31,17 +33,33 @@ export class Obstacle extends React.Component<Props> {
       }
     }, intProps);
 
-    if (this.ref.current) {
-      this.observer?.observe(this.ref.current);
-      this.props.obstacleState.setElement(this.ref.current);
+    if (this.innerRef.current && this.containerRef.current) {
+      this.observer?.observe(this.innerRef.current);
+      this.props.obstacleState.setElements(this.containerRef.current, this.innerRef.current);
     }
   }
 
   public render() {
-    const { obstacleState } = this.props;
+    const { obstacleState, playerSpeed } = this.props;
 
     const obsClasses = ['obstacle', obstacleState.dogType, obstacleState.currentAction];
 
-    return <div ref={this.ref} className={obsClasses.join(' ')}></div>;
+    const speed = this.getMoveSpeed(playerSpeed);
+
+    const style: CSSProperties = {
+      animationDuration: `${speed}s`,
+    };
+
+    return (
+      <div ref={this.containerRef} className={'obstacle-container'}>
+        <div ref={this.innerRef} className={obsClasses.join(' ')}></div>
+      </div>
+    );
+  }
+
+  private getMoveSpeed(playerSpeed: number) {
+    const base = 30;
+
+    return base - playerSpeed;
   }
 }

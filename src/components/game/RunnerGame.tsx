@@ -32,9 +32,11 @@ export class RunnerGame extends React.Component {
           <Backdrop playerSpeed={this.runnerState.player?.speed} paused={pauseAnims} />
 
           {this.runnerState.player && (
-            <Player key={this.runnerState.player.id} playerState={this.runnerState.player} />
+            <>
+              <Player key={this.runnerState.player.id} playerState={this.runnerState.player} />
+              {this.renderObstacles()}
+            </>
           )}
-          {this.renderObstacles()}
         </div>
 
         <div className={'foreground'}>
@@ -48,7 +50,7 @@ export class RunnerGame extends React.Component {
     return (
       <ObstaclesWrapper>
         {this.runnerState.obstacles.map((ob) => (
-          <Obstacle key={ob.id} obstacleState={ob} />
+          <Obstacle key={ob.id} obstacleState={ob} playerSpeed={this.runnerState.player.speed} />
         ))}
       </ObstaclesWrapper>
     );

@@ -151,7 +151,7 @@ export class RunnerGameState {
     window.cancelAnimationFrame(this.updateLoop);
 
     // Stop first animation on obstacles
-    this.obstacles.forEach((obs) => (obs.element.style.animationPlayState = 'paused, running'));
+    this.obstacles.forEach((obs) => (obs.container.style.animationPlayState = 'paused'));
 
     // Player had died
     this.player.die();
@@ -170,24 +170,12 @@ export class RunnerGameState {
     window.cancelAnimationFrame(this.updateLoop);
 
     // Stop all animations
-    this.obstacles.forEach((obs) => (obs.element.style.animationPlayState = 'paused'));
+    this.obstacles.forEach((obs) => obs.pause());
     this.player.playerElement.style.animationPlayState = 'paused';
   };
-
-  private pauseAnimations() {
-    // Pause obstacle anims
-    this.pauseObstacleAnims();
-
-    // Pause player anims
-    this.player.pause();
-  }
 
   private unpauseAnimations() {
     this.obstacles.forEach((obs) => obs.unpause());
     this.player.unpause();
-  }
-
-  private pauseObstacleAnims() {
-    this.obstacles.forEach((obs) => obs.pause());
   }
 }

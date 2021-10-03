@@ -12,6 +12,7 @@ export class ObstacleState {
   public readonly id: string;
   public dogType: string;
   public nearPlayer = false;
+  public container: HTMLDivElement;
   public element: HTMLDivElement;
 
   private onRemove: (id: string) => void;
@@ -23,8 +24,9 @@ export class ObstacleState {
     this.dogType = RandomUtils.coinToss() ? 'dog1' : 'dog2';
   }
 
-  public setElement(div: HTMLDivElement) {
-    this.element = div;
+  public setElements(container: HTMLDivElement, inner: HTMLDivElement) {
+    this.container = container;
+    this.element = inner;
   }
 
   public getBounds(): DOMRect {
@@ -44,10 +46,12 @@ export class ObstacleState {
   }
 
   @action public pause() {
-    this.element.style.animationPlayState = 'paused, running';
+    this.element.style.animationPlayState = 'paused';
+    this.container.style.animationPlayState = 'paused';
   }
 
   @action public unpause() {
     this.element.style.animationPlayState = '';
+    this.container.style.animationPlayState = '';
   }
 }
