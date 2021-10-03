@@ -1,7 +1,10 @@
+@import '../../../app.scss';
+
 .distance-counter {
   position: absolute;
   top: 30px;
   left: 30px;
-
+  font-family: $font;
   z-index: 20;
+  font-size: 2rem;
 }

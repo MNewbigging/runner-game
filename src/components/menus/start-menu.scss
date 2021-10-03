@@ -1,6 +1,9 @@
+@import '../../app.scss';
+
 .start-menu {
   width: 400px;
   height: 300px;
+  font-family: $font;
 
   display: flex;
   justify-content: center;

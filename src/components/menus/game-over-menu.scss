@@ -1,6 +1,9 @@
+@import '../../app.scss';
+
 .game-over-menu {
   width: 400px;
   height: 300px;
+  font-family: $font;
 
   display: flex;
   flex-direction: column;
