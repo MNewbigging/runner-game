@@ -1,12 +1,19 @@
 .obstacle {
   position: absolute;
   z-index: 50;
-  width: 50px;
-  height: 50px;
-  background-color: red;
+  width: 42px;
+  height: 32px;
   right: -50vw;
-  bottom: 0;
-  animation: moveLeft 6s linear 1;
+  bottom: 16px;
+  animation: moveLeft 10s linear 1, attackAnim 1s steps(4) infinite;
+  background-position: 0px 32px;
+  border: 1px solid red;
+
+  &.dog1 {
+    &.attacking {
+      background-image: url('/dist/assets/sprites/dog-attack.png');
+    }
+  }
 
   &.paused {
     animation-play-state: paused;
@@ -15,9 +22,15 @@
 
 @keyframes moveLeft {
   0% {
-    transform: translateX(0);
+    transform: translateX(0) scale(-2, 2);
   }
   100% {
-    transform: translateX(-250vw);
+    transform: translateX(-250vw) scale(-2, 2);
+  }
+}
+
+@keyframes attackAnim {
+  100% {
+    background-position: -192px 32px;
   }
 }

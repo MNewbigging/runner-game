@@ -6,11 +6,15 @@ export class GameUtils {
     const pRect = player.getBounds();
     const oRect = obs.getBounds();
 
-    return !(
+    // Allowed to overlap on left side by this much
+    const allowed = 20;
+    const collides = !(
       pRect.right < oRect.left ||
-      pRect.left > oRect.right ||
+      pRect.left > oRect.right - allowed ||
       pRect.bottom < oRect.top ||
       pRect.top > oRect.bottom
     );
+
+    return collides;
   }
 }

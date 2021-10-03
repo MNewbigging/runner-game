@@ -7,7 +7,7 @@
   bottom: 22px;
   transform: scale(2);
   background-image: url('/dist/assets/sprites/cat2-walk.png');
-  //background-size: 600%;
+  border: 1px solid lightgreen;
 
   &.running {
     animation: runAnim 1s steps(6) infinite;
@@ -15,7 +15,6 @@
 
   &.jumping {
     animation: jump 1s linear 1, jumpAnim 1s step-end 1;
-    //background-position: -96px;
   }
 }
 

@@ -37,6 +37,8 @@ export class Obstacle extends React.Component<Props> {
   }
 
   public render() {
-    return <div ref={this.ref} className={'obstacle'}></div>;
+    const obsClasses = ['obstacle', 'dog1', 'attacking'];
+
+    return <div ref={this.ref} className={obsClasses.join(' ')}></div>;
   }
 }
