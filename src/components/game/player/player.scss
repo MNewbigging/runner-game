@@ -14,13 +14,12 @@
   }
 
   &.jumping {
-    animation: jump 1s linear 1, jumpAnim 1s step-end 1;
+    animation: jump 1.2s cubic-bezier(0.5, 1, 0.5, 1) 1, jumpAnim 1s step-end 1;
   }
 
   &.dead {
     background-image: url('/dist/assets/sprites/cat2-death.png');
     animation: death 0.8s steps(3) 1 forwards;
-    //background-position: -48px;
   }
 }
 

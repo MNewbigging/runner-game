@@ -112,6 +112,9 @@ export class RunnerGameState {
   private updateDistanceRan() {
     // Calculate distance
     this.distanceRan = Math.floor(this.elapsedTime * this.player.speed);
+
+    // Update player speed based on distance
+    //this.player.speed = 1 + this.distanceRan / 100;
   }
 
   private checkObstacleCollisions() {

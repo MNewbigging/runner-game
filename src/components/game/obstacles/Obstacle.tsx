@@ -58,7 +58,7 @@ export class Obstacle extends React.Component<Props> {
   }
 
   private getMoveSpeed(playerSpeed: number) {
-    const base = 30;
+    const base = 10;
 
     return base - playerSpeed;
   }

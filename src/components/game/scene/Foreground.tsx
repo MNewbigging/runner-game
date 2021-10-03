@@ -35,6 +35,6 @@ export class Foreground extends React.Component<Props> {
   }
 
   private getScrollSpeed(playerSpeed: number) {
-    return playerSpeed / 2;
+    return playerSpeed / 1.5;
   }
 }
