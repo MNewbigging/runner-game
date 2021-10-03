@@ -7,7 +7,7 @@
   grid-template-areas:
     'background-area'
     'foreground';
-  grid-template-rows: minmax(0, auto) minmax(0, 15%);
+  grid-template-rows: minmax(0, 567px) minmax(0, auto);
 
   .background {
     grid-area: background-area;
