@@ -9,15 +9,13 @@
   background-image: url('/dist/assets/sprites/cat2-walk.png');
   //background-size: 600%;
 
-  animation: run 0.8s steps(6) infinite;
+  &.running {
+    animation: runAnim 1s steps(6) infinite;
+  }
 
   &.jumping {
-    // animation: jump;
-    // animation-duration: 1s;
-    // animation-iteration-count: 1;
-    // animation-timing-function: linear;
-
-    animation: run 0.8s steps(6) infinite, jump 1s linear 1;
+    animation: jump 1s linear 1, jumpAnim 1s step-end 1;
+    //background-position: -96px;
   }
 }
 
@@ -33,7 +31,28 @@
   }
 }
 
-@keyframes run {
+@keyframes jumpAnim {
+  0% {
+    background-position: 0px;
+  }
+  5% {
+    background-position: -48px;
+  }
+  10% {
+    background-position: -96px;
+  }
+  90% {
+    background-position: -144px;
+  }
+  95% {
+    background-position: -240px;
+  }
+  99% {
+    background-position: -288px;
+  }
+}
+
+@keyframes runAnim {
   100% {
     background-position: -288px;
   }
