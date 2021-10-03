@@ -4,7 +4,10 @@
   height: 32px;
   right: -100vw;
   bottom: 16px;
-  animation: moveLeft 20s linear 1;
+  //animation: moveLeft 20s linear 1;
+  animation-name: moveLeft;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
 }
 
 .obstacle {

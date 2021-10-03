@@ -51,7 +51,7 @@ export class Obstacle extends React.Component<Props> {
     };
 
     return (
-      <div ref={this.containerRef} className={'obstacle-container'}>
+      <div ref={this.containerRef} className={'obstacle-container'} style={style}>
         <div ref={this.innerRef} className={obsClasses.join(' ')}></div>
       </div>
     );

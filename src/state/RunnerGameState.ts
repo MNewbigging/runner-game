@@ -155,8 +155,6 @@ export class RunnerGameState {
 
     // Player had died
     this.player.die();
-
-    //this.pauseAnimations();
   }
 
   @action private pauseGame = () => {
