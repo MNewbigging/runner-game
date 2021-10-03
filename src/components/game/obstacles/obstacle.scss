@@ -6,12 +6,18 @@
   right: -50vw;
   bottom: 16px;
   animation: moveLeft 10s linear 1, attackAnim 1s steps(4) infinite;
-  background-position: 0px 32px;
-  border: 1px solid red;
+  background-position: -4px 32px;
+  //border: 1px solid red;
 
   &.dog1 {
     &.attacking {
       background-image: url('/dist/assets/sprites/dog-attack.png');
+    }
+  }
+
+  &.dog2 {
+    &.attacking {
+      background-image: url('/dist/assets/sprites/dog2-attack.png');
     }
   }
 

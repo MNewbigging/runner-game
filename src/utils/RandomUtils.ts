@@ -10,4 +10,8 @@ export class RandomUtils {
 
     return id;
   }
+
+  public static coinToss() {
+    return Math.random() < 0.5;
+  }
 }

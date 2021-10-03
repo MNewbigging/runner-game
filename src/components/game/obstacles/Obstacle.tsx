@@ -2,6 +2,7 @@ import { observer } from 'mobx-react';
 import React, { createRef } from 'react';
 
 import { ObstacleState } from '../../../state/ObstacleState';
+import { RandomUtils } from '../../../utils/RandomUtils';
 
 import './obstacle.scss';
 
@@ -37,7 +38,9 @@ export class Obstacle extends React.Component<Props> {
   }
 
   public render() {
-    const obsClasses = ['obstacle', 'dog1', 'attacking'];
+    const dogType = RandomUtils.coinToss() ? 'dog1' : 'dog2';
+
+    const obsClasses = ['obstacle', dogType, 'attacking'];
 
     return <div ref={this.ref} className={obsClasses.join(' ')}></div>;
   }

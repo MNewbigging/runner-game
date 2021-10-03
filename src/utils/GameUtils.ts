@@ -7,11 +7,12 @@ export class GameUtils {
     const oRect = obs.getBounds();
 
     // Allowed to overlap on left side by this much
-    const allowed = 20;
+    const allowedLeft = 20;
+    const allowedBot = 5;
     const collides = !(
       pRect.right < oRect.left ||
-      pRect.left > oRect.right - allowed ||
-      pRect.bottom < oRect.top ||
+      pRect.left > oRect.right - allowedLeft ||
+      pRect.bottom - allowedBot < oRect.top ||
       pRect.top > oRect.bottom
     );
 
