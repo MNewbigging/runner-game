@@ -2,8 +2,15 @@ import React from 'react';
 
 import './foreground.scss';
 
-export class Foreground extends React.Component {
+interface Props {
+  paused: boolean;
+  playerSpeed?: number;
+}
+
+export class Foreground extends React.Component<Props> {
   public render() {
+    const { paused, playerSpeed } = this.props;
+
     return (
       <div className={'foreground'}>
         <div className={'top-row tiles'}></div>
@@ -12,4 +19,6 @@ export class Foreground extends React.Component {
       </div>
     );
   }
+
+  private getScrollSpeed(playerSpeed: number) {}
 }

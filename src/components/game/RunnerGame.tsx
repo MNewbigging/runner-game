@@ -20,6 +20,7 @@ export class RunnerGame extends React.Component {
 
   public render() {
     const showDistance = !this.runnerState.isActiveScreen(GameScreen.START_SCREEN);
+    const pauseAnims = !this.runnerState.isActiveScreen(GameScreen.PLAY_SCREEN);
 
     return (
       <div className={'runner-game'}>
@@ -28,7 +29,7 @@ export class RunnerGame extends React.Component {
         {showDistance && <DistanceCounter distance={this.runnerState.distanceRan} />}
 
         <div className={'background'}>
-          <Backdrop playerSpeed={this.runnerState.player?.speed} />
+          <Backdrop playerSpeed={this.runnerState.player?.speed} paused={pauseAnims} />
 
           {this.runnerState.player && (
             <Player key={this.runnerState.player.id} playerState={this.runnerState.player} />
@@ -37,7 +38,7 @@ export class RunnerGame extends React.Component {
         </div>
 
         <div className={'foreground'}>
-          <Foreground />
+          <Foreground playerSpeed={this.runnerState.player?.speed} paused={pauseAnims} />
         </div>
       </div>
     );

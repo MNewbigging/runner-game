@@ -13,11 +13,4 @@ export class GameUtils {
       pRect.top > oRect.bottom
     );
   }
-
-  public static getScrollSpeed(playerSpeed: number) {
-    // As player speed increases, animation duration decreases
-    const base = 30;
-
-    return base - playerSpeed;
-  }
 }
