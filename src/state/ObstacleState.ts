@@ -1,7 +1,16 @@
 import { action, observable } from 'mobx';
+import { RandomUtils } from '../utils/RandomUtils';
+
+export enum ObstacleAction {
+  IDLE = 'idle',
+  ATTACK = 'attacking',
+  RUNNING = 'running',
+}
 
 export class ObstacleState {
+  @observable public currentAction = ObstacleAction.IDLE;
   public readonly id: string;
+  public dogType: string;
   public nearPlayer = false;
   public element: HTMLDivElement;
 
@@ -10,6 +19,8 @@ export class ObstacleState {
   constructor(id: string, onRemove: (id: string) => void) {
     this.id = id;
     this.onRemove = onRemove;
+
+    this.dogType = RandomUtils.coinToss() ? 'dog1' : 'dog2';
   }
 
   public setElement(div: HTMLDivElement) {
@@ -20,8 +31,9 @@ export class ObstacleState {
     return this.element.getBoundingClientRect();
   }
 
-  public enterPlayerArea() {
+  @action public enterPlayerArea() {
     this.nearPlayer = true;
+    this.currentAction = ObstacleAction.ATTACK;
   }
 
   public exitScreen() {
@@ -32,7 +44,7 @@ export class ObstacleState {
   }
 
   @action public pause() {
-    this.element.style.animationPlayState = 'paused';
+    this.element.style.animationPlayState = 'paused, running';
   }
 
   @action public unpause() {

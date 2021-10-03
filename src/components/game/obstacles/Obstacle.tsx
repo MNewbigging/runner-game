@@ -38,9 +38,9 @@ export class Obstacle extends React.Component<Props> {
   }
 
   public render() {
-    const dogType = RandomUtils.coinToss() ? 'dog1' : 'dog2';
+    const { obstacleState } = this.props;
 
-    const obsClasses = ['obstacle', dogType, 'attacking'];
+    const obsClasses = ['obstacle', obstacleState.dogType, obstacleState.currentAction];
 
     return <div ref={this.ref} className={obsClasses.join(' ')}></div>;
   }

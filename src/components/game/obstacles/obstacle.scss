@@ -13,11 +13,17 @@
     &.attacking {
       background-image: url('/dist/assets/sprites/dog-attack.png');
     }
+    &.idle {
+      background-image: url('/dist/assets/sprites/dog-idle.png');
+    }
   }
 
   &.dog2 {
     &.attacking {
       background-image: url('/dist/assets/sprites/dog2-attack.png');
+    }
+    &.idle {
+      background-image: url('/dist/assets/sprites/dog2-idle.png');
     }
   }
 
