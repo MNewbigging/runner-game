@@ -26,14 +26,13 @@ export class PlayerState {
   }
 
   @action public jump() {
+    console.log('jumping');
     this.status = PlayerStatus.JUMPING;
   }
 
   public onAnimEnd = () => {
     if (this.status === PlayerStatus.JUMPING) {
       this.status = PlayerStatus.RUNNING;
-    } else if (this.status === PlayerStatus.DEAD) {
-      // this.playerElement.style.backgroundPosition = '-192px';
     }
   };
 

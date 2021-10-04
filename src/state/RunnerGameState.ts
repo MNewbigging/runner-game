@@ -79,10 +79,10 @@ export class RunnerGameState {
     }
   };
 
-  @action private addObstacle() {
+  @action private addObstacle = () => {
     console.log('added obstacle');
     this.obstacles.push(ObstacleFactory.buildObstacle(this.removeOffscreenObstacle));
-  }
+  };
 
   private removeOffscreenObstacle = (id: string) => {
     this.obstacles = this.obstacles.filter((obs) => obs.id !== id);
@@ -146,6 +146,13 @@ export class RunnerGameState {
 
     this.addObstacle();
     this.timeSinceLastObstacle = 0;
+
+    // Next obstacle at random spacing value
+    const spacingMin = 1;
+    const spacingMax = 2.5;
+    console.log('next spacing: ', this.obstacleGroupSpacing);
+    this.obstacleGroupSpacing = RandomUtils.getRandomRange(spacingMin, spacingMax);
+    console.log('spacing', this.obstacleGroupSpacing);
   }
 
   @action private endGame() {

@@ -14,4 +14,8 @@ export class RandomUtils {
   public static coinToss() {
     return Math.random() < 0.5;
   }
+
+  public static getRandomRange(min: number, max: number) {
+    return Math.random() * (max - min) + min;
+  }
 }

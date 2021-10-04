@@ -14,7 +14,7 @@
   }
 
   &.jumping {
-    animation: jump 1.2s cubic-bezier(0.5, 1, 0.5, 1) 1, jumpAnim 1s step-end 1;
+    animation: jump 0.8s cubic-bezier(0.2, 1, 0.5, 1) 1, jumpAnim 1s step-end 1;
   }
 
   &.dead {
@@ -28,7 +28,7 @@
     transform: translate3d(0, 0, 0) scale(2);
   }
   50% {
-    transform: translate3d(0, -200px, 0) scale(2);
+    transform: translate3d(0, -130px, 0) scale(2);
   }
   100% {
     transform: translate3d(0, 0, 0) scale(2);
@@ -45,13 +45,13 @@
   10% {
     background-position: -96px;
   }
-  90% {
+  45% {
     background-position: -144px;
   }
-  95% {
+  70% {
     background-position: -240px;
   }
-  99% {
+  80% {
     background-position: -288px;
   }
 }
