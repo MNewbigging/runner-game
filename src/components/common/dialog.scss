@@ -1,8 +1,11 @@
+@import '../../app.scss';
+
 .dialog {
   position: absolute;
   transition: all 0.3s linear;
   border: 1px solid black;
-  background-color: white;
+  background-color: #b3afbb;
+  border-radius: 5px;
   left: 50%;
   z-index: 100;
   top: 10%;
@@ -13,5 +16,19 @@
 
   &.closed {
     transform: translate3d(-50%, -1000px, 0);
+  }
+
+  button {
+    background-color: #37446e;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    font-family: $font;
+    user-select: none;
+    cursor: pointer;
   }
 }

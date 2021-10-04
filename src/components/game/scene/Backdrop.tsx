@@ -32,12 +32,12 @@ export class Backdrop extends React.Component<Props> {
     };
 
     const bg4Style: CSSProperties = {
-      animationDuration: speed * 0.7 + 's',
+      animationDuration: speed * 0.6 + 's',
       animationPlayState: paused ? 'paused' : 'running',
     };
 
     const bg5Style: CSSProperties = {
-      animationDuration: speed * 0.6 + 's',
+      animationDuration: speed * 0.5 + 's',
       animationPlayState: paused ? 'paused' : 'running',
     };
 

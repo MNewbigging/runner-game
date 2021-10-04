@@ -18,6 +18,7 @@ export class StartMenu extends React.Component<Props> {
     return (
       <Dialog open={open}>
         <div className={'start-menu'}>
+          <p>Press Space to jump!</p>
           <button onClick={() => this.props.onStart()}>Start game</button>
         </div>
       </Dialog>
