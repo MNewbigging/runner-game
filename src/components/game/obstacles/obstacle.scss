@@ -4,7 +4,6 @@
   height: 32px;
   right: -100vw;
   bottom: 16px;
-  //animation: moveLeft 20s linear 1;
   animation-name: moveLeft;
   animation-timing-function: linear;
   animation-iteration-count: 1;
@@ -22,19 +21,19 @@
 
   &.dog1 {
     &.attacking {
-      background-image: url('/dist/assets/sprites/dog-attack.png');
+      background-image: url('../../../../dist/assets/sprites/dog-attack.png');
     }
     &.idle {
-      background-image: url('/dist/assets/sprites/dog-idle.png');
+      background-image: url('../../../../dist/assets/sprites/dog-idle.png');
     }
   }
 
   &.dog2 {
     &.attacking {
-      background-image: url('/dist/assets/sprites/dog2-attack.png');
+      background-image: url('../../../../dist/assets/sprites/dog2-attack.png');
     }
     &.idle {
-      background-image: url('/dist/assets/sprites/dog2-idle.png');
+      background-image: url('../../../../dist/assets/sprites/dog2-idle.png');
     }
   }
 
